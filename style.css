@@ -1,0 +1,179 @@
+/* ---------- Variáveis ---------- */
+:root {
+  --ink: #4f4f4f;
+  --text: rgba(0, 0, 0, .69);
+  --text-inv: rgba(255, 255, 255, .86);
+  --paper: #fefcf2;
+  --border: 3px solid var(--ink);
+  --radius: 1rem;
+  --shadow: .375rem .375rem 0 var(--ink);
+  --shadow-sm: .25rem .25rem 0 var(--ink);
+  --focus: #1aa6b7;
+  --font-title: "Unbounded", "Arial Black", system-ui, sans-serif;
+  --font-body: "Space Mono", ui-monospace, Menlo, Consolas, monospace;
+}
+
+/* ---------- Base ---------- */
+*, *::before, *::after { box-sizing: border-box; }
+
+body {
+  margin: 0;
+  min-height: 100vh;
+  font-family: var(--font-body);
+  color: var(--text);
+  background-color: #f2e0cf;
+  background-image:
+    linear-gradient(rgba(0, 0, 0, .05) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(0, 0, 0, .05) 1px, transparent 1px),
+    linear-gradient(212deg, #f2e8c9, #f2d9d5);
+  background-size: 24px 24px, 24px 24px, 100% 100%;
+}
+
+.page {
+  width: min(100% - 2rem, 30rem);
+  margin: 0 auto;
+  padding: 3rem 0 3.5rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+/* ---------- Cartão base ---------- */
+.card {
+  display: flex;
+  align-items: center;
+  gap: 1.25rem;
+  padding: 1.5rem 1.75rem;
+  border: var(--border);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow);
+}
+
+/* ---------- Perfil ---------- */
+.profile { background: var(--paper); }
+
+.avatar {
+  flex: none;
+  width: 5rem;
+  height: 5rem;
+  border: var(--border);
+  border-radius: 50%;
+  box-shadow: var(--shadow-sm);
+  background: #9a9a9a;
+  overflow: hidden;
+  display: grid;
+  place-items: center;
+  color: #fff;
+  font-family: var(--font-title);
+  font-size: 1.1rem;
+}
+.avatar img { width: 100%; height: 100%; object-fit: cover; display: block; }
+
+.profile-text { min-width: 0; }
+
+h1 {
+  margin: 0 0 .5rem;
+  font-family: var(--font-title);
+  font-weight: 700;
+  font-size: clamp(1.25rem, 6vw, 1.75rem);
+  line-height: 1.1;
+  letter-spacing: -.05em;
+  text-transform: uppercase;
+  color: var(--text);
+  overflow-wrap: anywhere;
+}
+.profile p { margin: 0; font-size: .85rem; }
+
+/* ---------- Cartões de projeto ---------- */
+.links { display: flex; flex-direction: column; gap: 1.5rem; }
+
+.link {
+  justify-content: space-between;
+  text-decoration: none;
+  color: var(--text);
+  transition: transform .15s ease, box-shadow .15s ease;
+}
+.link .body { flex: 1; min-width: 0; }
+
+.link h2 {
+  margin: 0 0 .5rem;
+  font-family: var(--font-title);
+  font-weight: 700;
+  font-size: clamp(1.05rem, 5vw, 1.4rem);
+  line-height: 1.1;
+  letter-spacing: -.05em;
+  text-transform: uppercase;
+  overflow-wrap: anywhere;
+}
+.link p { margin: 0; font-size: .85rem; line-height: 1.5; }
+
+.link:hover,
+.link:focus-visible {
+  transform: translate(-2px, -2px);
+  box-shadow: .5rem .5rem 0 var(--ink);
+}
+.link:active {
+  transform: translate(4px, 4px);
+  box-shadow: 0 0 0 var(--ink);
+}
+.link:focus-visible,
+.icon-btn:focus-visible { outline: 3px solid var(--focus); outline-offset: 4px; }
+
+/* Cores dos cartões */
+.yellow { background: linear-gradient(135deg, #fddc2d, #ffe55c); }
+.blue   { background: linear-gradient(135deg, #2b46fe, #546aff); color: var(--text-inv); }
+.pink   { background: linear-gradient(135deg, #fd5176, #ff708f); }
+.green  { background: linear-gradient(135deg, #09ce9c, #27e3b3); }
+
+/* ---------- Botões de ícone ---------- */
+.icon-btn {
+  flex: none;
+  width: 3.25rem;
+  height: 3.25rem;
+  display: grid;
+  place-items: center;
+  background: var(--paper);
+  color: var(--ink);
+  border: var(--border);
+  border-radius: .75rem;
+  box-shadow: var(--shadow-sm);
+  text-decoration: none;
+  transition: transform .15s ease, box-shadow .15s ease;
+}
+.icon-btn svg {
+  width: 1.6rem;
+  height: 1.6rem;
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 2;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+.icon-btn svg[fill="currentColor"] { fill: currentColor; stroke: none; }
+
+a.icon-btn:hover { transform: translate(-2px, -2px); box-shadow: .375rem .375rem 0 var(--ink); }
+a.icon-btn:active { transform: translate(3px, 3px); box-shadow: 0 0 0 var(--ink); }
+
+/* ---------- Redes sociais ---------- */
+.socials { display: flex; justify-content: center; gap: 1.25rem; padding-top: .25rem; }
+
+/* ---------- Animação de entrada (só toca uma vez) ---------- */
+@keyframes rise {
+  from { opacity: 0; transform: translateY(16px); }
+}
+.js [data-reveal] {
+  animation: rise .6s ease backwards;
+  animation-delay: calc(var(--i, 0) * 125ms);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .js [data-reveal] { animation: none; }
+  .link, .icon-btn { transition: none; }
+}
+
+/* ---------- Ecrãs pequenos ---------- */
+@media (max-width: 380px) {
+  .card { padding: 1.25rem; gap: 1rem; }
+  .avatar { width: 4rem; height: 4rem; }
+  .icon-btn { width: 2.9rem; height: 2.9rem; }
+}
